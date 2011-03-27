@@ -32,7 +32,7 @@ class Wire < Thread
   
   def runner
     @block.call(*@vars)
-  rescue StandardError => error
+  rescue => error
     raise error
   ensure
     @counter.synchronize do

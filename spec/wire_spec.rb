@@ -15,22 +15,27 @@ def time
 end
 
 describe Wire do
+  before(:each) do
+    counter = Counter.new
+    Wire.should_receive(:counter).any_number_of_times.and_return(counter)
+  end
+  
   context "should be able to do run within the time limit" do
     it "< max threads" do
       start = time
       runner(10, {max: 10, wait: 1}) do
         sleep 0.1
       end
-
-      (time - start).should < 1.05
+  
+      (time - start).should < 1.15
     end
-
+  
     it "> max threads" do
       start = time
       runner(11, {max: 10, wait: 1}) do
         sleep 0.1
       end
-
+  
       (time - start).should > 1.2
     end
   end
@@ -40,7 +45,7 @@ describe Wire do
     runner(1, {max: 1, wait: 1}) do
       sleep 0.1
     end
-
+  
     (time - start).should < 0.2
   end
   
@@ -58,13 +63,13 @@ describe Wire do
     runner(11, {max: 10, wait: 0}) do
       sleep 0.1
     end
-
+  
     (time - start).should < 0.25
   end
   
   context "error" do
     it "should use the default values if wrong arguments is being passed" do
-      w = Wire.new(max: 0) {}
+      w = Wire.new(max: 0) {}.join
       w.instance_eval do
         @max.should == 10
         @wait.should == 1
@@ -72,7 +77,7 @@ describe Wire do
     end
     
     it "should use the default values if nothing is being passed" do
-      w = Wire.new({}) {}
+      w = Wire.new({}) {}.join
       w.instance_eval do
         @max.should == 10
         @wait.should == 1
@@ -80,11 +85,19 @@ describe Wire do
     end
     
     it "should use the default values if wrong arguments is being passed" do
-      w = Wire.new(wait: 5) {}
+      w = Wire.new(wait: 5) {}.join
       w.instance_eval do
         @max.should == 10
         @wait.should == 5
       end
+    end
+    
+    it "should be possible to raise an error" do
+      lambda do
+        Wire.new(wait: 5, max: 1) do
+          raise StandardError.new
+        end.join
+      end.should raise_error(StandardError)
     end
   end
 end
