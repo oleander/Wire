@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Linus Oleander"]
   s.email       = ["linus@oleander.nu"]
-  s.homepage    = ""
+  s.homepage    = "https://github.com/Oleander/wire"
   s.summary     = %q{Run your threads within a time interval}
   s.description = %q{Run your threads within a time interval, using Ruby}
 
