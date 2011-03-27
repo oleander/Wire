@@ -69,7 +69,7 @@ We wanted to make as many request as possible without being banned due to the ra
 
 ### Tip
 
-Don't forget join your threads using `Thread#join`.
+Don't forget to join your threads using `Thread#join`.
  
     list = []
     10.times do |n|
