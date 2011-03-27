@@ -26,7 +26,7 @@ Time to run: ~ *1.2 seconds*.
 
 This is how it works.
 
-- 11 threads is created, done at time 0
+- 11 threads is created, done at time 0.
 - Running 10 threads, done at time 0.1
 - Wait 1 second, done at time 1.1
 - Start the 11th thread, done at time 1.2
