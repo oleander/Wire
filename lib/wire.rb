@@ -9,9 +9,9 @@ class Wire < Thread
   def initialize(args, &block)
     args.keys.each { |name| instance_variable_set "@" + name.to_s, args[name] }
     
-    if @max.to_i.zero? or @wait.nil?
+    if @max.to_i <= 0 or @wait.nil?
       warn "Both max and wait needs to be passed, where max > 0. Using default values"
-      @max = 10 if @max.to_i.zero? 
+      @max = 10 if @max.to_i <= 0
       @wait ||= 1
     end
     

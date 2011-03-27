@@ -8,8 +8,8 @@ Gem::Specification.new do |s|
   s.authors     = ["Linus Oleander"]
   s.email       = ["linus@oleander.nu"]
   s.homepage    = "https://github.com/Oleander/wire"
-  s.summary     = %q{Run your threads within a time interval}
-  s.description = %q{Run your threads within a time interval, using Ruby}
+  s.summary     = %q{Run a strict amount of threads during a time interval}
+  s.description = %q{Run a strict amount of threads during a time interval, primarily used for web scraping.}
 
   s.rubyforge_project = "wire"
 
