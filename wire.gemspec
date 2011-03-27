@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Linus Oleander"]
   s.email       = ["linus@oleander.nu"]
-  s.homepage    = "https://github.com/Oleander/wire"
+  s.homepage    = "https://github.com/Oleander/Wire"
   s.summary     = %q{Run a strict amount of threads during a time interval}
   s.description = %q{Run a strict amount of threads during a time interval, primarily used for web scraping.}
 
