@@ -36,7 +36,7 @@ class Wire < Thread
     raise error
   ensure
     @counter.synchronize do
-      if @max - 1 == @counter.i
+      if @max == @counter.i or @counter.last
         @counter.last = Time.now.to_f
       end
       @counter.dec
