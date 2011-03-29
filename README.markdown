@@ -89,7 +89,8 @@ Ingoing arguments to `new`.
 - **wait** (Integer) The time to wait before starting a new thread.
 - **vars** (Array) A list of arguments to the block.
 - **silent** (Boolean) The given block will not raise error if set to true. Default is false.
-    
+- **timeout** (Integer) The maximum time to run *one* thread, default is *no limit*.
+
 ## How do install
 
     [sudo] gem install wire
