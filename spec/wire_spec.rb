@@ -99,5 +99,13 @@ describe Wire do
         end.join
       end.should raise_error(StandardError)
     end
+    
+    it "should be silent" do
+      lambda do
+        Wire.new(wait: 5, max: 1, silent: true) do
+          raise StandardError.new
+        end.join
+      end.should_not raise_error(StandardError)
+    end
   end
 end

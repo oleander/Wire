@@ -33,7 +33,7 @@ class Wire < Thread
   def runner
     @block.call(*@vars)
   rescue => error
-    raise error
+    @silent ? warn("An error occurred: #{error.inspect}") : (raise error)
   ensure
     @counter.synchronize do
       if @max == @counter.i or @counter.last
