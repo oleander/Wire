@@ -1,5 +1,6 @@
 require "thread"
 require "monitor"
+require "timeout"
 
 class Wire < Thread  
   def self.counter
@@ -31,9 +32,9 @@ class Wire < Thread
   end
   
   def runner
-    @block.call(*@vars)
+    @timeout ? Timeout::timeout(@timeout) { @block.call(*@vars) } : @block.call(*@vars)
   rescue => error
-    @silent ? warn("An error occurred: #{error.inspect}") : (raise error)
+    report(error, "An error occurred: #{error.inspect}")
   ensure
     @counter.synchronize do
       if @max == @counter.i or @counter.last
@@ -42,6 +43,10 @@ class Wire < Thread
       @counter.dec
       @counter.cond.signal
     end
+  end
+  
+  def report(error, message)
+    @silent ? warn(message) : (raise error)
   end
 end
 

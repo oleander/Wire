@@ -107,5 +107,29 @@ describe Wire do
         end.join
       end.should_not raise_error(StandardError)
     end
+    
+    it "should raise timeout error" do
+      lambda do
+        Wire.new(wait: 5, max: 1, timeout: 1) do
+          sleep 5
+        end.join
+      end.should raise_error(Timeout::Error)
+    end
+    
+    it "should not raise timeout error" do
+      lambda do
+        Wire.new(wait: 5, silent: true, max: 1, timeout: 1) do
+          sleep 5
+        end.join
+      end.should_not raise_error(Timeout::Error)
+    end
+    
+     it "should not raise timeout error" do
+        lambda do
+          Wire.new(wait: 5, silent: true, max: 1, timeout: 2) do
+            sleep 1
+          end.join
+        end.should_not raise_error(Timeout::Error)
+      end
   end
 end
