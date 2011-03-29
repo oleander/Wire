@@ -88,6 +88,7 @@ Ingoing arguments to `new`.
 - **max** (Integer) The maximum amount of threads to run a the same time. The value 10 will be used if `max` is nil or zero.
 - **wait** (Integer) The time to wait before starting a new thread.
 - **vars** (Array) A list of arguments to the block.
+- **silent** (Boolean) The given block will not raise error if set to true. Default is false.
     
 ## How do install
 
