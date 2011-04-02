@@ -90,6 +90,8 @@ Ingoing arguments to `new`.
 - **vars** (Array) A list of arguments to the block.
 - **silent** (Boolean) The given block will not raise error if set to true. Default is false.
 - **timeout** (Integer) The maximum time to run *one* thread, default is *no limit*.
+- **retries** (Integer) How many times should we retry? Default is 0.
+- **delay** (Float) Time between each retry. Default is 0.
 
 ## How do install
 

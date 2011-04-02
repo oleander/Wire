@@ -9,7 +9,7 @@ class Wire < Thread
   
   def initialize(args, &block)
     args.keys.each { |name| instance_variable_set "@" + name.to_s, args[name] }
-    
+
     if @max.to_i <= 0 or @wait.nil?
       warn "Both max and wait needs to be passed, where max > 0. Using default values"
       @max = 10 if @max.to_i <= 0
@@ -18,6 +18,9 @@ class Wire < Thread
     
     @block   = block
     @counter = Wire.counter
+    @retries ||= 0
+    @retry = 0
+    @delay ||= 0
     
     @counter.synchronize do
       @counter.cond.wait_until { @counter.i < @max }
@@ -33,7 +36,10 @@ class Wire < Thread
   
   def runner
     @timeout ? Timeout::timeout(@timeout) { @block.call(*@vars) } : @block.call(*@vars)
-  rescue => error
+  rescue StandardError => error
+    if (@retry += 1) < @retries
+      sleep @delay; retry
+    end
     report(error, "An error occurred: #{error.inspect}")
   ensure
     @counter.synchronize do
